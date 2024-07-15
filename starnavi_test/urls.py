@@ -18,15 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 
-# api_urlpatterns = [
-#     path('auth/', include('djoser.urls')),
-#     path('auth/', include('djoser.urls.authtoken')),
-# ]
-
+api_urlpatterns = [
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
+    path('posts/', include('posts.api.urls')),
+]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')),
+    path('api/', include(api_urlpatterns)),
 ]
