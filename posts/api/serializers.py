@@ -13,8 +13,14 @@ class PostSerializer(serializers.ModelSerializer):
         read_only_fields = ('user', 'blocked',)
 
     def validate(self, attrs):
-        if settings.USE_MODERATION:
-            attrs['blocked'] = check_text_inappropriateness(f'{attrs['title']}\n {attrs['content']}')
+        if settings.USE_MODERATION and ('content' in attrs or 'title' in attrs):
+            list_of_texts = []
+            if 'title' in attrs:
+                list_of_texts.append(attrs['title'])
+            if 'content' in attrs:
+                list_of_texts.append(attrs['content'])
+            text_to_check = '; '.join(list_of_texts)
+            attrs['blocked'] = check_text_inappropriateness(text_to_check)
         return attrs
 
 
@@ -25,7 +31,7 @@ class CommentSerializer(serializers.ModelSerializer):
         read_only_fields = ('user', 'blocked',)
 
     def validate(self, attrs):
-        if settings.USE_MODERATION:
+        if settings.USE_MODERATION and 'content' in attrs:
             attrs['blocked'] = check_text_inappropriateness(attrs['content'])
         return attrs
 
