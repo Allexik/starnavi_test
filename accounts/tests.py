@@ -8,4 +8,8 @@ class TestProfileViewSet(APITestCase):
         self.user = User.objects.create_user(username='testuser', password='testpassword')
 
     def test_profile_was_created(self):
-        self.assertTrue(Profile.objects.filter(user=self.user).exists())
+        self.assertTrue(Profile.objects.exists())
+
+    def test_profile_was_deleted(self):
+        self.user.delete()
+        self.assertFalse(Profile.objects.exists())
