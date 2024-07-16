@@ -11,6 +11,11 @@ class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
     permission_classes = [IsOwner]
 
+    def list(self, request, *args, **kwargs):
+        if request.user.is_staff:
+            return super().list(request, *args, **kwargs)
+        return Response(status=status.HTTP_403_FORBIDDEN)
+
     def create(self, request, *args, **kwargs):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
