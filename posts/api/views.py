@@ -39,7 +39,9 @@ class CommentViewSet(viewsets.ModelViewSet):
 
         queryset = queryset.values('created_at__date').annotate(
             comment_count=models.Count('id'),
-            blocked_count=models.Count('blocked')
+            blocked_count=models.Count(models.Case(
+                models.When(blocked=True, then=1)
+            ))
         ).order_by('-created_at__date')
 
         return Response(queryset)
