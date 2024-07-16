@@ -46,6 +46,7 @@ DJANGO_APPS = [
 ]
 
 PROJECT_APPS = [
+    'accounts',
     'posts',
 ]
 
@@ -158,4 +159,17 @@ REST_FRAMEWORK = {
 
 # Google Cloud
 
+GCP_PROJECT_ID = env('GCP_PROJECT_ID')
+GCP_MODELS_LOCATION = env('GCP_MODELS_LOCATION')
 GOOGLE_APPLICATION_CREDENTIALS_JSON = env('GOOGLE_APPLICATION_CREDENTIALS_JSON')  # json string
+
+
+# Celery
+
+CELERY_BROKER_URL = 'amqp://starnavi_test:1234@rabbitmq:5672//'
+CELERY_RESULT_BACKEND = 'rpc://'
+
+
+# General
+
+USE_MODERATION = env.bool('USE_MODERATION', default=True)

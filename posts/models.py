@@ -23,6 +23,7 @@ class Comment(models.Model):
     answer_to = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
     content = models.TextField()
     blocked = models.BooleanField(default=False)
+    auto_generated = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
