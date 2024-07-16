@@ -173,3 +173,4 @@ CELERY_RESULT_BACKEND = 'rpc://'
 # General
 
 USE_MODERATION = env.bool('USE_MODERATION', default=True)
+INAPPROPRIATE_TEXT = env('INAPPROPRIATE_TEXT', default=None)
