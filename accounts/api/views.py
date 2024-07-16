@@ -3,11 +3,11 @@ from rest_framework.response import Response
 
 from common.permissions import IsOwner
 from accounts.api.serializers import ProfileSerializer
-from posts.models import Post
+from accounts.models import Profile
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
+    queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [IsOwner]
 
