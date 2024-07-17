@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django.urls import reverse
 from django.conf import settings
 from rest_framework import status
@@ -80,7 +82,9 @@ class TestCommentViewSet(APITestCase):
         self.assertFalse(Comment.objects.filter(pk=self.comments[0].pk).exists())
 
     def test_daily_breakdown(self):
-        url = reverse('comment-daily-breakdown')
+        date_from = (datetime.now() - timedelta(days=1)).date()
+        date_to = datetime.now().date()
+        url = reverse('comment-daily-breakdown') + f'?date_from={date_from}&date_to={date_to}'
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)

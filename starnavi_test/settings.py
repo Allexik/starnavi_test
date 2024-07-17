@@ -157,6 +157,15 @@ REST_FRAMEWORK = {
 }
 
 
+# Djoser
+
+DJOSER = {
+    'SERIALIZERS': {
+        'current_user': 'accounts.api.serializers.CurrentUserSerializer',
+    },
+}
+
+
 # Google Cloud
 
 GCP_PROJECT_ID = env('GCP_PROJECT_ID')

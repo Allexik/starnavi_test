@@ -21,7 +21,6 @@ from django.urls import path, include
 api_urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
-    path('accounts/', include('accounts.api.urls')),
     path('posts/', include('posts.api.urls')),
 ]
 
