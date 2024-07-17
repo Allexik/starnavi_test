@@ -19,8 +19,8 @@ class CommentFilter(django_filters.FilterSet):
     date_from = django_filters.DateFilter(field_name='created_at', lookup_expr='gte')
     date_to = django_filters.DateFilter(field_name='created_at', lookup_expr='lte')
     post = django_filters.ModelChoiceFilter(queryset=Post.objects.all())
-    answer_to = django_filters.ModelChoiceFilter(queryset=Comment.objects.all())
+    replied_comment = django_filters.ModelChoiceFilter(queryset=Comment.objects.all())
 
     class Meta:
         model = Comment
-        fields = ['post', 'answer_to', 'content', 'date_from', 'date_to', 'auto_generated']
+        fields = ['post', 'replied_comment', 'content', 'date_from', 'date_to', 'auto_generated']

@@ -20,7 +20,7 @@ class Post(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    answer_to = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    replied_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
     content = models.TextField()
     blocked = models.BooleanField(default=False)
     auto_generated = models.BooleanField(default=False)
@@ -33,10 +33,10 @@ class Comment(models.Model):
     def clean(self):
         if self.post.blocked:
             raise ValueError('Cannot comment on a blocked post')
-        if self.answer_to and self.answer_to.blocked:
-            raise ValueError('Cannot answer to a blocked comment')
-        if self.answer_to and self.answer_to.post != self.post:
-            raise ValueError('Answered comment must be from the same post')
+        if self.replied_comment and self.replied_comment.blocked:
+            raise ValueError('Cannot reply a blocked comment')
+        if self.replied_comment and self.replied_comment.post != self.post:
+            raise ValueError('Replied comment must be from the same post')
 
     def save(self, *args, **kwargs):
         self.clean()

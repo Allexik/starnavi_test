@@ -37,7 +37,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         validated_data.pop('post', None)
-        validated_data.pop('answer_to', None)
+        validated_data.pop('replied_comment', None)
         return super().update(instance, validated_data)
 
     def create(self, validated_data):
