@@ -46,3 +46,10 @@ This is a Django project setup with Docker Compose for easy development and depl
 5. **Access the application:**
 
     Open your browser and go to `http://localhost:8000`.
+
+
+6. **Run tests:**
+
+    ```bash
+    docker-compose exec web python manage.py test
+    ```
