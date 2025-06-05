@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 
 
 User = get_user_model()
@@ -32,11 +33,11 @@ class Comment(models.Model):
 
     def clean(self):
         if self.post.blocked:
-            raise ValueError('Cannot comment on a blocked post')
+            raise ValidationError('Cannot comment on a blocked post')
         if self.replied_comment and self.replied_comment.blocked:
-            raise ValueError('Cannot reply a blocked comment')
+            raise ValidationError('Cannot reply a blocked comment')
         if self.replied_comment and self.replied_comment.post != self.post:
-            raise ValueError('Replied comment must be from the same post')
+            raise ValidationError('Replied comment must be from the same post')
 
     def save(self, *args, **kwargs):
         self.clean()
